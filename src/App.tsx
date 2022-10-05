@@ -1,24 +1,28 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "./hooks/useLocation";
+import Table from "./components/Table";
 
 const App = () => {
-  const { data, fetch } = useLocation();
-  const [locations, setLocations] = useState()
+  const [dataLocations, setDataLocations] = useState([]);
 
-  const handleApi = () => {
-    fetch({
-      start: 0,
-      limit: 100,
-    });  
-  };
+  const { data, fetch } = useLocation();
 
   useEffect(() => {
-    if(data?.data.result) setLocations(data?.data.result)
-  }, [data?.data.result])
-  console.log(locations)
+    if (!data && dataLocations.length === 0) fetch();
+    if (data?.status === 200 && dataLocations.length === 0) {
+      const {
+        data: {
+          result: { locations },
+        },
+      } = data;
+      setDataLocations(locations);
+    }
+    return;
+  }, [data, dataLocations, fetch]);
+
   return (
     <div className="App">
-      <button onClick={() => handleApi()}>CHAMA API</button>
+      {dataLocations.length > 0 && <Table {...dataLocations} />}
     </div>
   );
 };

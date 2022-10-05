@@ -10,5 +10,12 @@ export const useAPI = () => {
     return config;
   });
 
+  apiRef.current.interceptors.response.use(
+    (response) => response,
+    (error) => {
+      return Promise.reject(error);
+    }
+  );
+
   return apiRef.current;
 };

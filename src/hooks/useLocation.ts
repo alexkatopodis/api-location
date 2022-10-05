@@ -5,23 +5,22 @@ import { AxiosResponse } from "axios";
 export const useLocation = () => {
   const api = useAPI();
   const [data, setData] = useState<AxiosResponse>();
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
-  const fetch = useCallback(
-    (body = {}) => {
-      setLoading(true);
-      const fetchData = async () => {      
-        const values = await api.get("/api", body);
+  const fetch = useCallback(() => {
+    setLoading(true);
+    const fetchData = async () => {
+      try {
+        const values = await api.get("/api");
         setData(values);
         setLoading(false);
-      };
-      fetchData();
-    }, 
-    [api]
-  );
-  // useEffect(() => {
-  //   setLoading(!loading)
-  // },[data])
+      } catch (e) {
+        console.log(e);
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, [api]);
 
   return { isLoading: loading, data, fetch };
 };

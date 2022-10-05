@@ -15,7 +15,6 @@ app.get('/api', (req, res) => {
       },{
         headers: {
           Username: "amitphatak$r5labs.com",
-          "postman-token": "609ee145-a1a6-65b2-b196-77bc2ba115d8",
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
         },
@@ -26,9 +25,9 @@ app.get('/api', (req, res) => {
       .catch(function (error) {
         res.send({result: 'Oh no!'})
       });
-  
+
 })
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
+  console.log(`Server started on ${port}`)
 })
