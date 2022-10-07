@@ -1,3 +1,4 @@
+import styled from "styled-components";
 export interface TableInterface {
   active: boolean;
   address: {
@@ -21,9 +22,25 @@ export interface TableInterface {
 }
 
 const Table = (props: Array<TableInterface>) => {
-  console.log(typeof props);
+  const mapLocations = Object.values(props).map((item, idx) => {
+    return (
+      <ContainerDetails key={idx}>
+        <div>Location Details: {item.locationDetails}</div>
+        <div>Adress: {item.address.addressLine1}</div>
+        <div>Location Type: {item.locationType}</div>
+      </ContainerDetails>
+    );
+  });
 
-  return <div></div>;
+  return <div>{mapLocations}</div>;
 };
 
 export default Table;
+
+const ContainerDetails = styled.div`
+  color: red;
+  padding: 10px;
+  text-align: center;
+  border: 2px solid black;
+  max-width: 250px;
+`;

@@ -5,7 +5,7 @@ import Table from "./components/Table";
 const App = () => {
   const [dataLocations, setDataLocations] = useState([]);
 
-  const { data, fetch } = useLocation();
+  const { data, fetch, isLoading } = useLocation();
 
   useEffect(() => {
     if (!data && dataLocations.length === 0) fetch();
@@ -21,9 +21,10 @@ const App = () => {
   }, [data, dataLocations, fetch]);
 
   return (
-    <div className="App">
-      {dataLocations.length > 0 && <Table {...dataLocations} />}
-    </div>
+    <>
+      {isLoading && <h1>Loading....</h1>}
+      {dataLocations.length > 0 && !isLoading && <Table {...dataLocations} />}
+    </>
   );
 };
 
